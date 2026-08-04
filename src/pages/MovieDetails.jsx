@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 import StarRating from "../components/Rating";
 import Recommendations from "../components/Recommendations";
 import MovieReviews from "../components/Reviews";
@@ -13,7 +14,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
-
+  const { t } = useTranslation();
   const {language,isRTL,changeLang} = useContext(languageContext)
   console.log(language)
 
@@ -26,7 +27,7 @@ function MovieDetails() {
   }, [id, language]);
   // console.log(movie);
 
-  if (!movie) return <p>Loading...</p>;
+  if (!movie) return <p className="text-white text-center mt-5">{t("loading")}</p>;
 
   return (
     <>
@@ -43,19 +44,19 @@ function MovieDetails() {
           <h1 className="title">{movie.title}</h1>
           <span className="date">{new Date(movie.release_date).toLocaleDateString('en-US',
              { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-          {/* <p className="rating">{movie.vote_average.toFixed(1)} / 10</p> */}
           <StarRating rating={movie.vote_average} />
-          <p className="overview">{movie.overview}</p>
+          <p className="overview"><strong>{t("overview")}:</strong> {movie.overview}</p>
 
           <div className="genres">
+            <strong>{t("genres")}:</strong>
             {movie.genres.map((genre) => (
               <span key={genre.id} className="genre">{genre.name}</span>
             ))}
           </div>
 
             <div className="movie-info">
-              <p><strong>Duration:</strong> {movie.runtime} min</p>
-              <p><strong>Language:</strong> {movie.original_language.toUpperCase()}</p>
+              <p><strong>{t("duration")}:</strong> {movie.runtime} min</p>
+              <p><strong>{t("language")}:</strong> {movie.original_language.toUpperCase()}</p>
             </div>
 
           <div className="production">
@@ -76,7 +77,7 @@ function MovieDetails() {
         
           {movie.homepage && (
             <a href={movie.homepage} className="website-btn" target="_blank" rel="noopener noreferrer">
-              Website
+              {t("website")}
             </a>
           )}
        </div>

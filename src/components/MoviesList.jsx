@@ -28,9 +28,9 @@ const MoviesList = () => {
   return (
     <div className="movies-container">
       <h1 className="section-title" style={{ color: "#d10000" }}>
-        {t("movies lsit")}
+        {t("movieslist")}
       </h1>
-      <div className="row">
+      <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-4">
         {movies.slice(0, moviesPerPage).map((movie) => (
           <MovieCard key={movie.id} movie={movie} />
         ))}

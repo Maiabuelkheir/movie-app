@@ -1,35 +1,78 @@
-.search-page{
-    bottom: 0;
-        position: relative;
-        width: 100%;
-        min-height: calc(100vh - 60px);
-        background: url("../assets/Search hero.jpg") no-repeat center center ;
-        background-size:cover;
-        display: flex;
-        align-items: center;
-        justify-content: start;
-        padding: 50px;
-        color: white;
-        overflow: hidden;
-      }
-.search-container{
-    top:20%;
-    position: absolute;
+.search-page {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 72px);
+  background: url("../assets/Search hero.jpg") no-repeat center center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  color: white;
+  overflow: hidden;
 }
-.search-form{
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    justify-content: center;
-    border-radius: 50px;
-    background-color: rgba(255, 255, 255);
-    width: 50%;
-    left: 50%;
+.search-container {
+  position: relative;
+  width: min(100%, 1100px);
+  margin: 0 auto;
+  padding: 30px 20px;
+  background: rgba(0, 0, 0, 0.62);
+  border-radius: 28px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
 }
-.search-form input{
-    border: none;
-    outline: none;
-    padding: 0 15px;
-    font-size: 16px;
-    font-weight: light;
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+  justify-content: center;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  max-width: 760px;
+  padding: 10px;
+}
+.search-form input {
+  border: none;
+  outline: none;
+  padding: 14px 16px;
+  font-size: 1rem;
+  width: 100%;
+  border-radius: 40px;
+  background: transparent;
+}
+.search-form button {
+  min-width: 130px;
+  border-radius: 40px;
+  padding: 12px 18px;
+}
+
+@media (max-width: 768px) {
+  .search-page {
+    min-height: auto;
+    padding: 28px 16px;
+  }
+  .search-container {
+    padding: 24px 18px;
+  }
+  .search-form {
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+  .search-form button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .search-page {
+    padding: 22px 12px;
+  }
+  .search-container {
+    padding: 18px 14px;
+    border-radius: 24px;
+  }
+  .search-form input {
+    font-size: 0.95rem;
+  }
 }

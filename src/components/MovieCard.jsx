@@ -9,9 +9,9 @@ const MovieCard = ({ movie }) => {
   const isInwatchlist = watchlistItems.some((item) => item.id === movie.id);
 
   return (
-    <div className="col-md-2 mb-4 col-lg-2 col-sm-6">
+    <div className="col mb-4">
       <div className="movie-card position-relative">
-        <Link to={`/movie/${movie.id}`}>
+        <Link to={`/movie/${movie.id}`} className="movie-link">
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             alt={movie.title}
@@ -19,13 +19,15 @@ const MovieCard = ({ movie }) => {
           />
         </Link>
 
-        <div className="movie-info d-flex flex-column justify-content-between">
-          <div>
+        <div className="movie-info">
+          <div className="movie-text">
             <span className="movie-title">{movie.title}</span>
             <span className="movie-date">{movie.release_date}</span>
           </div>
+
           <button
-            className="btn position-absolute bottom-0 end-0 me-2 mb-2"
+            type="button"
+            className="watchlist-btn"
             onClick={() =>
               isInwatchlist
                 ? dispatch(removeFromwatchlist(movie.id))
@@ -33,11 +35,8 @@ const MovieCard = ({ movie }) => {
             }
           >
             <i
-              className="bi bi-heart-fill"
-              style={{
-                fontSize: "1.5rem",
-                color: isInwatchlist ? "#FF6347" : "white",
-              }}
+              className={isInwatchlist ? "bi bi-heart-fill" : "bi bi-heart"}
+              style={{ color: isInwatchlist ? "#FF6347" : "#FFFFFF" }}
             ></i>
           </button>
         </div>

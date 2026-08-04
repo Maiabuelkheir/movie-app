@@ -5,7 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import languageContext from '../context/languageContext';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
@@ -14,7 +14,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Recommendations = ({ movieId }) => {
   const {language,isRTL,changeLang} = useContext(languageContext)
-  console.log(language)
+  const { t } = useTranslation();
   const [recommendations, setRecommendations] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Recommendations = ({ movieId }) => {
   }, [movieId, language]);
 
   if (recommendations.length === 0) {
-    return <p>No recommendations available.</p>;
+    return <p className="text-white text-center mt-4">{t("noRecommendations")}</p>;
   }
 
   return (

@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import img from '../assets/react.svg';
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import languageContext from "../context/languageContext";
 
 const MovieReviews = ({ movieId }) => {
@@ -9,6 +9,7 @@ const MovieReviews = ({ movieId }) => {
     const [loading, setLoading] = useState(true);
 
     const {language,isRTL,changeLang} = useContext(languageContext)
+    const { t } = useTranslation();
 
     const API_KEY = import.meta.env.VITE_API_KEY;
     
@@ -21,8 +22,8 @@ const MovieReviews = ({ movieId }) => {
     }, [movieId,language]);
     console.log(reviews);
 
-    if (loading) return <p>Loading reviews...</p>;
-    if (reviews.length === 0) return <p className="no-review">No reviews available.</p>;
+    if (loading) return <p className="text-white text-center mt-4">{t("loading")}...</p>;
+    if (reviews.length === 0) return <p className="no-review text-center text-white mt-4">{t("noReviews")}</p>;
 
     return (
         <div className="reviews-section">

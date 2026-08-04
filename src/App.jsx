@@ -3,6 +3,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AppNavbar from "./components/Navbar";
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Home from './pages/Home'
 import { BrowserRouter, Routes ,Route } from 'react-router-dom';
 import MovieDetails from './pages/MovieDetails'
@@ -22,9 +23,11 @@ function WatchlistLayout() {
 function App() {
   const [language, setLanguage] = useState('en')
   const [isRTL, setIsRTL] = useState(false)
+  const { i18n } = useTranslation();
   
   const changeLang = (lang) => {
     setLanguage(lang);
+    i18n.changeLanguage(lang);
     setIsRTL(lang === "ar"); 
   };
   

@@ -5,8 +5,8 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../css/searchPage.css'
-import { t } from 'i18next';
 import languageContext from './../context/languageContext';
 
 export default function SearchPage() {
@@ -16,6 +16,7 @@ export default function SearchPage() {
 
   const [movies,setMovies] = useState([])
   const [movieName,setMovieName] = useState('')
+  const { t } = useTranslation();
 
   // function handleInput(e){
   //   setMovieName(e.target.value)
@@ -38,10 +39,10 @@ export default function SearchPage() {
   return (
     <div className='search-page'>
       <div className='search-container container '> 
-        <div className='search-form mb-5'>
+        <div className='search-form'>
           {/* onChange={handleInput}  value={movieName} */}
-          <input className='form-control rounded-5'  type="text" placeholder="search your movies here" name="search-movie" id="search-movie" />
-          <button className='btn btn-danger m-0' onClick={handleSearch}>Search</button>
+          <input className='form-control rounded-5'  type="text" placeholder={t("searchPlaceholder")} name="search-movie" id="search-movie" />
+          <button className='btn btn-danger m-0' onClick={handleSearch}>{t("search")}</button>
         </div>
           <Swiper
             slidesPerView={5}  
@@ -56,7 +57,6 @@ export default function SearchPage() {
               992: { slidesPerView: 3, spaceBetween: 10 },
               1200: { slidesPerView: 4, spaceBetween: 10 },
               1400: { slidesPerView: 5, spaceBetween: 10 },
-              1650: { slidesPerView: 6, spaceBetween: 10 },
             }}    
           >
           {movies.map((movie) => (
