@@ -14,6 +14,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [trailer, setTrailer] = useState(null);
   const { t } = useTranslation();
   const {language,isRTL,changeLang} = useContext(languageContext)
   console.log(language)
@@ -26,6 +27,32 @@ function MovieDetails() {
       .catch((error) => console.error("Error fetching movie details:", error));
   }, [id, language]);
   // console.log(movie);
+  
+  useEffect(() => {
+  axios
+    .get(`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=${language}`)
+    .then((response) => {
+      const videos = response.data.results;
+
+      const officialTrailer =
+        videos.find(
+          (video) =>
+            video.type === "Trailer" &&
+            video.site === "YouTube" &&
+            video.official === true
+        ) ||
+        videos.find(
+          (video) =>
+            video.type === "Trailer" &&
+            video.site === "YouTube"
+        );
+
+      setTrailer(officialTrailer || null);
+    })
+    .catch((error) =>
+      console.error("Error fetching trailer:", error)
+    );
+}, [id, language]);
 
   if (!movie) return <p className="text-white text-center mt-5">{t("loading")}</p>;
 
@@ -85,6 +112,25 @@ function MovieDetails() {
   </div>
   <div class="hr-container">
     <hr/>
+</div>
+
+{trailer && (
+  <div className="trailer-container">
+    <h2>{t("trailer")}</h2>
+
+    <div className="trailer-wrapper">
+      <iframe
+        src={`https://www.youtube.com/embed/${trailer.key}?rel=0&modestbranding=1`}
+        title={trailer.name}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+    </div>
+  </div>
+)}
+
+<div className="hr-container">
+  <hr />
 </div>
 
   <Recommendations movieId={id} />
